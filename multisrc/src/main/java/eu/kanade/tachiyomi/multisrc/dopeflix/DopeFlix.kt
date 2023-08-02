@@ -201,7 +201,11 @@ abstract class DopeFlix(
                         "DoodStream" in name ->
                             DoodExtractor(client).videoFromUrl(sourceUrl)
                                 ?.let(::listOf)
-                        "Vidcloud" in name || "UpCloud" in name -> {
+                        "Vidcloud" in name -> {
+                            val video = extractor.getVideoDto(sourceUrl)
+                            getVideosFromServer(video, name)
+                        }
+                        "UpCloud" in name -> {
                             val video = extractor.getVideoDto(sourceUrl)
                             getVideosFromServer(video, name)
                         }
