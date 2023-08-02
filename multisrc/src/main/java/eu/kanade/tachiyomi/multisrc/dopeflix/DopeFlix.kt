@@ -205,7 +205,7 @@ abstract class DopeFlix(
                         "DoodStream" in name ->
                             DoodExtractor(client).videoFromUrl(sourceUrl)
                                 ?.let(::listOf)
-
+                        
                         "UpCloud" in name -> {
                             val video = extractor.getVideoDto(sourceUrl)
                             getVideosFromServer(video, name)
@@ -246,7 +246,7 @@ abstract class DopeFlix(
         val quality = preferences.getString(PREF_QUALITY_KEY, PREF_QUALITY_DEFAULT)!!
         return sortedWith(
             compareBy { it.quality.contains(quality) },
-        ).reversed()
+        )
     }
 
     private fun subLangOrder(tracks: List<Track>): List<Track> {
