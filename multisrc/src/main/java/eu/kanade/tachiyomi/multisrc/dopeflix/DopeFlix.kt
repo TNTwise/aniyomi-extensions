@@ -198,10 +198,14 @@ abstract class DopeFlix(
                     .substringBefore("\"")
                 runCatching {
                     when {
+                        "Vidcloud" in name -> {
+                            val video = extractor.getVideoDto(sourceUrl)
+                            getVideosFromServer(video, name)
+                        }
                         "DoodStream" in name ->
                             DoodExtractor(client).videoFromUrl(sourceUrl)
                                 ?.let(::listOf)
-                        
+
                         "UpCloud" in name -> {
                             val video = extractor.getVideoDto(sourceUrl)
                             getVideosFromServer(video, name)

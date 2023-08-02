@@ -162,7 +162,7 @@ class EgyDead : ConfigurableAnimeSource, ParsedAnimeHttpSource() {
                 val request = client.newCall(GET(url, headers)).execute().asJsoup()
                 val data = JsUnpacker.unpackAndCombine(request.selectFirst("script:containsData(sources)")!!.data())!!
                 val m3u8 = SOURCE_URL_REGEX.find(data)!!.groupValues[1]
-                if(QUALITIES_REGEX.containsMatchIn(m3u8)){
+                if (QUALITIES_REGEX.containsMatchIn(m3u8)) {
                     val streamLink = QUALITIES_REGEX.find(m3u8)!!
                     val streamQuality = streamLink.groupValues[2].split(",").reversed()
                     val qualities = data.substringAfter("qualityLabels").substringBefore("}")
@@ -177,7 +177,6 @@ class EgyDead : ConfigurableAnimeSource, ParsedAnimeHttpSource() {
                     val qRegex = Regex("\".*?\"\\s*:\\s*\"(.*?)\"").find(qualities)!!
                     Video(m3u8, qRegex.groupValues[1], m3u8).let(::listOf)
                 }
-
             }
             url.contains("fanakishtuna") -> {
                 val request = client.newCall(GET(url, headers)).execute().asJsoup()
@@ -365,7 +364,8 @@ class EgyDead : ConfigurableAnimeSource, ParsedAnimeHttpSource() {
         screen.addPreference(defaultDomain)
         screen.addPreference(videoQualityPref)
     }
-    //like|kharabnahk
+
+    // like|kharabnahk
     companion object {
         private val STREAMSB_REGEX = Regex("(?:view|watch|embed(?:tv)?|tube|player|cloudemb|japopav|javplaya|p1ayerjavseen|gomovizplay|stream(?:ovies)?|vidmovie|javside|aintahalu|finaltayibin|yahlusubh|taeyabathuna|like|kharabnahk)?s{0,2}b?(?:embed\\d?|play\\d?|video|fast|full|streams{0,3}|the|speed|l?anh|tvmshow|longvu|arslanrocky|chill|rity|hight|brisk|face|lvturbo|net|one|asian|ani|rapid|sonic|lona)?\\.(?:com|net|org|one|tv|xyz|fun|pro|sbs)")
         private val DOOD_REGEX = Regex("(do*d(?:stream)?\\.(?:com?|watch|to|s[ho]|cx|la|w[sf]|pm|re|yt|stream))/[de]/([0-9a-zA-Z]+)")
